@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import PostCard from "../../molecules/PostCard/PostCard";
 import Button from "../../atoms/Button/Button";
