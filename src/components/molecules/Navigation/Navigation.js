@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../../contexts/AuthContext";
 import Icon from "../../atoms/Icon/Icon";
 
 const NavContainer = styled.nav`
@@ -84,8 +85,47 @@ const Logo = styled.div`
   }
 `;
 
+const LogoutButton = styled.button`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: none;
+  background: none;
+  color: #ef4444;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 60px;
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  &:hover {
+    color: #dc2626;
+    background-color: #fef2f2;
+  }
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    min-width: auto;
+    width: 100%;
+    font-size: 0.875rem;
+  }
+`;
+
 const Navigation = ({ user }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   const navItems = [
     {
@@ -143,6 +183,21 @@ const Navigation = ({ user }) => {
           </NavItem>
         );
       })}
+      {user && (
+        <LogoutButton onClick={handleLogout}>
+          <Icon size="large">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+              />
+            </svg>
+          </Icon>
+          <NavLabel>Logout</NavLabel>
+        </LogoutButton>
+      )}
     </NavContainer>
   );
 };
