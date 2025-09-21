@@ -72,14 +72,10 @@ const PostFeed = ({
   onLoadMore,
   className,
 }) => {
-  const [refreshing, setRefreshing] = useState(false);
-
   const handleRefresh = async () => {
-    setRefreshing(true);
     if (onRefresh) {
       await onRefresh();
     }
-    setRefreshing(false);
   };
 
   const handleLoadMore = () => {
