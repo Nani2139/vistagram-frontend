@@ -3,7 +3,7 @@ import axios from "axios";
 // Create axios instance
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL || "http://localhost:5000/api",
-  timeout: 10000,
+  timeout: 60000, // 60 seconds for image uploads
 });
 
 // Request interceptor to add auth token
