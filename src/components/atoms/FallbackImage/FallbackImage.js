@@ -52,6 +52,7 @@ const FallbackImage = ({ src, alt, ...props }) => {
   const getImageUrl = (imageSrc) => {
     if (!imageSrc) return null;
     if (imageSrc.startsWith("http")) return imageSrc;
+    if (imageSrc.startsWith("data:")) return imageSrc; // Handle base64 images
     if (imageSrc.startsWith("/uploads/")) {
       const backendUrl =
         process.env.REACT_APP_API_URL || "http://localhost:5000";
